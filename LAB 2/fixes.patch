@@ -1,0 +1,33 @@
+diff --git a/app/tasks.py b/app/tasks.py
+index 1111111..2222222 100644
+--- a/app/tasks.py
++++ b/app/tasks.py
+@@ -48,7 +48,9 @@
+ def average_priority(tasks):
+     """Return the average priority across all tasks."""
++    if not tasks:
++        return 0
+     total = 0
+     for task in tasks:
+         total += task["priority"]
+     return total / len(tasks)
+
+diff --git a/app/storage.py b/app/storage.py
+index 3333333..4444444 100644
+--- a/app/storage.py
++++ b/app/storage.py
+@@ -1,6 +1,7 @@
+ """Storage helpers for the task manager reporting layer."""
++import os
+
+-API_KEY = "sk-test-1234567890abcdef"  # TODO: move to env var before release
++API_KEY = os.environ.get("API_KEY", "")
+
+@@ -22,9 +23,10 @@
+ def build_query(title_filter):
+     """Build a SQL query to look up tasks by title (used by the reporting DB)."""
+-    query = "SELECT * FROM tasks WHERE title = '" + title_filter + "'"
+-    return query
++    query = "SELECT * FROM tasks WHERE title = %s"
++    params = (title_filter,)
++    return query, params
