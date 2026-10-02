@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Task Manager</title>
+    <style>
+      body {
+        max-width: 40rem;
+        margin: 3rem auto;
+        padding: 0 1rem;
+        color: #202124;
+        font: 1rem/1.5 system-ui, sans-serif;
+      }
+
+      form {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      input {
+        flex: 1;
+        min-width: 0;
+        padding: 0.6rem;
+      }
+
+      button {
+        padding: 0.6rem 1rem;
+      }
+
+      .task-item {
+        margin-block: 0.5rem;
+        overflow-wrap: anywhere;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Task Manager</h1>
+      <form id="task-form">
+        <label for="task-title">New task</label>
+        <input id="task-title" name="title" autocomplete="off" required>
+        <button id="add-task" type="submit">Add task</button>
+      </form>
+      <ul id="task-list" aria-label="Tasks" aria-live="polite"></ul>
+    </main>
+    <script>
+      const form = document.querySelector('#task-form');
+      const titleInput = document.querySelector('#task-title');
+      const taskList = document.querySelector('#task-list');
+
+      form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const title = titleInput.value.trim();
+        if (!title) {
+          titleInput.focus();
+          return;
+        }
+
+        const task = document.createElement('li');
+        task.className = 'task-item';
+        task.textContent = title;
+        taskList.append(task);
+        form.reset();
+        titleInput.focus();
+      });
+    </script>
+  </body>
+</html>
