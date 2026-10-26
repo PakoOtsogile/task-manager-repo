@@ -1,0 +1,48 @@
+P01 [F] add_task with empty title
+     -> ''
+P02 [F] add_task with whitespace-only title
+     -> '   '
+P03 [D] add_task with 1000-character title
+     -> 1000
+P04 [D] add_task with priority -5
+     -> -5
+P05 [D] add_task with priority 'high' (string)
+     -> 'high'
+P06 [D] average_priority after adding a string priority
+     -> RAISED TypeError: unsupported operand type(s) for +=: 'int' and 'str'
+P07 [D] add_task with title None
+     -> None
+P08 [I] complete_task with string id '1'
+     -> False
+P09 [I] complete_task with True as id (True == 1)
+     -> True
+P10 [I] complete_task with float id 1.0
+     -> True
+P11 [F] remove_task with nonexistent id (silent?)
+     -> (None, 1)
+P12 [F] find_task_by_title is case-sensitive
+     -> None
+P13 [F] get_pending_tasks on a task missing the 'done' key
+     -> RAISED KeyError: 'done'
+P14 [F] average_priority of an empty list
+     -> RAISED ZeroDivisionError: division by zero
+P15 [F] get_pending_tasks with exactly one pending task
+     -> []
+P16 [O] ids after add, add, add, remove(2), add
+     -> [(1, 'A'), (3, 'C'), (3, 'D')]
+P17 [O] complete_task(3) when two tasks share id 3
+     -> [(1, 'A', False), (3, 'C', True), (3, 'D', False)]
+P18 [S] default tags list shared between tasks
+     -> ['x']
+P19 [P] load_tasks with a corrupt tasks.json
+     -> RAISED JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+P20 [P] load_tasks with an empty tasks.json
+     -> RAISED JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+P21 [P] save_tasks with a non-JSON value (set) in tags
+     -> RAISED TypeError: Object of type set is not JSON serializable
+P22 [P] warnings raised by load_tasks (unclosed file)
+     -> ['ResourceWarning']
+P23 [P] unicode title survives save/load
+     -> True
+P24 [P] contents of tasks.json after a FAILED save_tasks (was 'keep me')
+     -> '[{"id": 1, "tags": '

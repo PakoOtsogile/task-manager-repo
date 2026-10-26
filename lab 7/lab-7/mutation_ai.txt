@@ -1,0 +1,12 @@
+To apply a mutant on disk:
+    mutmut apply <id>
+
+To show a mutant:
+    mutmut show <id>
+
+
+Survived 🙁 (39)
+
+---- app/tasks.py (39) ----
+
+1-34, 38, 40-43
